@@ -1,4 +1,4 @@
 class MainController < ApplicationController
-  def app
+  def babble
   end
 end

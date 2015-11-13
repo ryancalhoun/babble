@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'main#app'
+  root 'main#babble'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

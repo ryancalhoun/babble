@@ -6,9 +6,8 @@ html, body, .container {
 .form-element {
 	width: 100%;
 }
-div.form-element {
-	height: 100%;
-	
+textarea.form-element {
+	height: 300px;
 }
 
 footer {
@@ -16,5 +15,5 @@ footer {
 	position: fixed;
 	bottom: 0;
 	padding-top: 10px;
-	padding-bottom: 30px;
+	padding-bottom: 80px;
 }
