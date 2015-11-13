@@ -43,3 +43,8 @@ group :assets do
   gem 'coffee-rails'
 end
 
+group :test do
+  gem 'database_cleaner'
+end
+ 
+
