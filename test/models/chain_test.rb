@@ -9,4 +9,10 @@ class ChainTest < ActiveSupport::TestCase
     assert Chain.create(:word=>'dog', :previous=>'the').save
     assert ! Chain.create(:word=>'dog', :previous=>'the').save
   end
+  test "punctuation" do
+    Chain.create :word=>',', :is_punct => true
+    Chain.create :word=>'.', :is_punct => true, :is_end => true
+    assert Chain.find_by(:word=>[',', '.']).is_punct? 
+    assert Chain.find_by(:word=>'.').is_end? 
+  end
 end

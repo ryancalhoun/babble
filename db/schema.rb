@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113035748) do
+ActiveRecord::Schema.define(version: 20151114160754) do
 
   create_table "chains", force: :cascade do |t|
     t.string   "word"
     t.string   "previous"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_punct",   default: false
+    t.boolean  "is_end",     default: false
   end
 
 end
