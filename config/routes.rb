@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'main#babble'
 
+  get 'sentence' => 'main#create_sentence'
+  post 'sentence' => 'main#parse_sentence'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -2,19 +2,16 @@ class Chain < ActiveRecord::Base
   validates :word, :uniqueness => { :scope => :previous }
 
   def self.get_random_word
-    min_id = min
-    where(['id >= ?', min_id + rand(max - min_id)]).where.not(:is_punct => true).first
+    return unless count > 0
+    min_id = minimum(:id).to_i
+    max_id = where.not(:is_punct => true).last.id
+
+    where.not(:is_punct => true).where(['id >= ?', min_id + rand(max_id - min_id + 1)]).first
   end
 
   def self.get_random_next_word(word)
-    find where(:previous => word).pluck(:id).sample
+    id = where(:previous => word).pluck(:id).sample
+    find id if id
   end
 
-  private
-  def self.min
-    minimum(:id).to_i
-  end
-  def self.max
-    maximum(:id).to_i
-  end
 end
