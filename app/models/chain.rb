@@ -3,7 +3,7 @@ class Chain < ActiveRecord::Base
 
   def self.get_random_word
     min_id = min
-    where('id >= ?', min_id + rand(max - min_id)).first
+    where(['id >= ?', min_id + rand(max - min_id)]).where.not(:is_punct => true).first
   end
 
   def self.get_random_next_word(word)
