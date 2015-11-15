@@ -1,24 +1,21 @@
 <div class="container">
-  <div class="row">
-    <div class="col col-lg-4 col-md-3"></div>
-    <div class="col col-lg-4 col-md-6">
-      <h1>Babble</h1>
-      <textarea id="history" class="form-element"></textarea>
+  <div class="center">
+    <h1>Babble</h1>
+
+    <div class="form-element">
+      <div id="history" class="history"></div>
     </div>
-    <div class="col col-lg-4 col-md-3"></div>
+
+    <input type="text" id="entry" class="form-element"></input>
   </div>
 </div>
 
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col col-lg-4 col-md-3"></div>
-      <div class="col col-lg-4 col-md-6">
-        <input type="text" id="entry" class="form-element"></input>
-      </div>
-    </div>
-  </div>
-</footer>
+<div id="message" class="template">
+  <div name="text" class="message"></div>
+</div>
+<div id="reply" class="template">
+  <div name="text" class="reply"></div>
+</div>
 
 <%= javascript_include_tag "application" %>
 <%= javascript_include_tag "babble" %>

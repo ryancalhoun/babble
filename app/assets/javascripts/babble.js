@@ -1,8 +1,22 @@
 (function () {
 
-  var updateHistory = function(who, text) {
+  var enableMessageBox = function() {
+    var entry = $('#entry');
+    entry.prop('disabled', false);
+    entry.focus();
+  };
+  var disableMessageBox = function() {
+    var entry = $('#entry');
+    entry.prop('disabled', true);
+  };
+
+  var updateHistory = function(type, text) {
+    var elem = $($('#' + type).html());
+    elem.text(text);
+
     var history = $('#history');
-    history.append(who + ": " + text + "\n");
+    history.append(elem);
+
     if(history.length)
       history.scrollTop(history[0].scrollHeight - history.height());
   };
@@ -12,7 +26,8 @@
       type: 'GET',
       url: '/sentence'
     }).done(function (text) {
-      updateHistory("Babble", text);
+      updateHistory("reply", text);
+      enableMessageBox();
     });
   };
 
@@ -34,9 +49,10 @@
       var text = $(this).val();
       $(this).val('');
 
-      updateHistory("Me", text);
+      updateHistory("message", text);
+      disableMessageBox();
       sendText(text);
     }
-  });  
+  });
 
 }) ();
