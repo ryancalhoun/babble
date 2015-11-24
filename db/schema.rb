@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20151116233029) do
   end
 
   create_table "words", force: :cascade do |t|
-    t.string   "value"
+    t.string   "value",                           null: false
     t.boolean  "punct",           default: false
     t.boolean  "end_of_sentence", default: false
     t.datetime "created_at",                      null: false

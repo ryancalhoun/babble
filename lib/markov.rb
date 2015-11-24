@@ -1,38 +1,46 @@
+require_relative 'word_builder'
+
 class Markov
 
-  END_PUNCT = /[.!\?]/
-
-  def initialize(model)
-    @model = model
+  def initialize(words, chains)
+    @words, @chains = words, chains
   end
 
   def create_sentence
-    w = @model.get_random_word
+    w = @words.get_random_word
     return unless w
-    s = w.word.capitalize
-    until w.is_end?
-      w = @model.get_random_next_word(w.word)
-      break unless w
-      s << ' ' unless w.is_punct?
-      s << w.word
+    s = w.value.capitalize
+    until w.end_of_sentence?
+      n = @chains.get_random_next_word(w)
+      break unless n
+      w = n.word
+      s << ' ' unless w.punct?
+      s << w.value
     end
     s
   end
 
   def parse!(text)
     text.scan(/\w+(?:'\w+)?|[[:punct:]]/).inject(nil) {|prev,word|
-      @model.create opts(prev, word)
-      word
+      if prev
+        prev = WordBuilder.new prev
+        prev = @words.where(prev).first_or_create
+      end
+
+      word = WordBuilder.new word
+      word = @words.where(word).first_or_create
+
+      @chains.create chain_opts(prev, word)
+      word.value
     }
   end
 
   private
-  def opts(prev, word)
+
+  def chain_opts(prev, word)
     {
-      :previous => prev =~ END_PUNCT ? nil : prev,
-      :word     => word,
-      :is_punct => !! (word =~ /^\W/),
-      :is_end   => !! (word =~ END_PUNCT),
+      :word      => word,
+      :prev_word => (prev.nil? || prev.end_of_sentence?) ? nil : prev,
     }
   end
 

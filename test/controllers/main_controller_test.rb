@@ -2,8 +2,12 @@ require 'test_helper'
 
 class MainControllerTest < ActionController::TestCase
   test "get sentence" do
-    Chain.create :word => 'Hello'
-    Chain.create :word => '!', :previous => 'Hello', :is_punct => true, :is_end => true
+
+    w1 = Word.create(WordBuilder.new('Hello').to_h)
+    w2 = Word.create(WordBuilder.new('!').to_h)
+
+    Chain.create :word => w1
+    Chain.create :word => w2, :prev_word => w1
     get :create_sentence
     assert_equal 'Hello!', @response.body
   end
